@@ -5,6 +5,10 @@ image:
   tag: ""
   pullPolicy: IfNotPresent
 
+# Needed while the ghcr package is private, e.g. [{name: ghcr-pull}] — a docker-registry
+# Secret in the release namespace holding a token with read:packages.
+imagePullSecrets: []
+
 service:
   type: ClusterIP
   port: 8501

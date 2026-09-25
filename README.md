@@ -38,8 +38,9 @@ streamlit run app.py
 
 ## Container image
 
-`ghcr.io/santosh-oc/feedback-pulse:0.1.0` (linux/amd64, linux/arm64), built from the
-`Dockerfile`; listens on 8501.
+`ghcr.io/santosh-oc/feedback-pulse:0.2.0` (linux/amd64, linux/arm64), built from the
+`Dockerfile`; listens on 8501. While the package is private, install with
+`--set imagePullSecrets[0].name=<secret>` pointing at a docker-registry Secret for ghcr.io.
 
 ## Helm chart (DKubeX)
 
@@ -48,7 +49,7 @@ dependencies (auto-provisioned) and is routed under `/feedback-pulse` through th
 gateway. The packaged chart is served from the `gh-pages` branch:
 
 ```bash
-helm repo add feedback-pulse https://santosh-oc.github.io/feedback-pulse-dkubex
+helm repo add feedback-pulse https://santosh-oc.github.io/feedback-pulse
 helm install feedback-pulse feedback-pulse/feedback-pulse
 ```
 
