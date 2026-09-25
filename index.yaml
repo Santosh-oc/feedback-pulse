@@ -30,13 +30,13 @@ entries:
         timeout: "10m"
     apiVersion: v2
     appVersion: 0.2.0
-    created: "2026-09-25T12:35:14.340015735Z"
+    created: "2026-09-25T13:25:05.25460047Z"
     description: Classify customer feedback with an OpenAI-compatible LLM and track
       sentiment.
-    digest: 0ab8e9f1ecdedf2432f2b902724a8729e965775b698afd52c5e93f0b35d101cc
+    digest: 0939b78df4e0d9880cd1eec54ce4ab575abf1c39f657a224d7fedfc2f1cca124
     name: feedback-pulse
     type: application
     urls:
     - https://santosh-oc.github.io/feedback-pulse/feedback-pulse-0.2.0.tgz
     version: 0.2.0
-generated: "2026-09-25T12:35:14.339778247Z"
+generated: "2026-09-25T13:25:05.254120768Z"
