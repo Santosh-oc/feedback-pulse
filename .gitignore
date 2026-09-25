@@ -1,0 +1,7 @@
+# Written by `d3x app create`; specific to one DKubeX workspace.
+.dkubex-app.env
+__pycache__/
+*.pyc
+.venv/
+# Packaged charts live on the gh-pages branch, not main.
+charts/*.tgz

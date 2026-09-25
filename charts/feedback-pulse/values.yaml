@@ -1,0 +1,36 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/santosh-oc/feedback-pulse
+  tag: ""
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8501
+
+# Hostname for the HTTPRoute. "*" or empty means match any host.
+hostname: "*"
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+# Injected by DKubeX (declared in `dependencies`).
+postgres:
+  db_url: ""
+minio:
+  endpoint: ""
+  access_key: ""
+  secret_key: ""
+  bucket: ""
+
+# Fallback LLM settings, used until they are saved on the app's Settings page.
+llm:
+  baseUrl: ""
+  token: ""
+  model: ""

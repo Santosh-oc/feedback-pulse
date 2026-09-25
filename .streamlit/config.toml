@@ -1,0 +1,3 @@
+# DKubeX's default theme (localStorage 'dkubex-ui-theme' unset) is dark.
+[theme]
+base = "dark"

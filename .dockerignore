@@ -1,0 +1,7 @@
+.git
+.dkubex-app.env
+.env.local
+docker-compose.yml
+charts/
+assets/
+__pycache__/

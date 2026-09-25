@@ -1,0 +1,5 @@
+streamlit>=1.45
+pandas
+psycopg2-binary
+minio
+requests

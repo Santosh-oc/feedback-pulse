@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "feedback-pulse.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels: {{- include "feedback-pulse.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels: {{- include "feedback-pulse.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels: {{- include "feedback-pulse.selectorLabels" . | nindent 8 }}
+      annotations:
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+    spec:
+      containers:
+        - name: app
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+          env:
+            # DKubeX serves base-path apps under /<app-name>; the image passes it to Streamlit.
+            - name: DKUBEX_BASE_PATH
+              value: "/{{ include "feedback-pulse.name" . }}"
+            # Refuse sessions that did not come through the gateway's identity headers.
+            - name: DKUBEX_REQUIRE_AUTH
+              value: "true"
+            - name: MINIO_ENDPOINT
+              value: {{ .Values.minio.endpoint | quote }}
+            - name: MINIO_BUCKET
+              value: {{ .Values.minio.bucket | quote }}
+            - name: LLM_BASE_URL
+              value: {{ .Values.llm.baseUrl | quote }}
+            - name: LLM_MODEL
+              value: {{ .Values.llm.model | quote }}
+          envFrom:
+            - secretRef:
+                name: {{ include "feedback-pulse.fullname" . }}
+          readinessProbe:
+            httpGet:
+              path: /{{ include "feedback-pulse.name" . }}/_stcore/health
+              port: http
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /{{ include "feedback-pulse.name" . }}/_stcore/health
+              port: http
+            initialDelaySeconds: 20
+            periodSeconds: 20
+          resources: {{- toYaml .Values.resources | nindent 12 }}

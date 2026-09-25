@@ -1,0 +1,34 @@
+apiVersion: v2
+name: feedback-pulse
+description: Classify customer feedback with an OpenAI-compatible LLM and track sentiment.
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+
+annotations:
+  dkubex: |
+    url: "/feedback-pulse"
+    displayName: Feedback Pulse
+    icon: "https://raw.githubusercontent.com/Santosh-oc/feedback-pulse-dkubex/main/assets/icon.svg"
+    docs: "https://github.com/Santosh-oc/feedback-pulse-dkubex#readme"
+    images:
+      - "https://raw.githubusercontent.com/Santosh-oc/feedback-pulse-dkubex/main/assets/screenshot-1.png"
+    description: "Classify customer feedback by sentiment and category with an LLM, and track the trends."
+    categories:
+      - "AI / ML"
+    roles:
+      - "admin"
+      - "user"
+    resources:
+      cpu:
+        min: "100m"
+        recommended: "250m"
+      memory:
+        min: "256Mi"
+        recommended: "512Mi"
+    dependencies:
+      - postgres
+      - minio
+    routing:
+      type: basepath
+    timeout: "10m"
